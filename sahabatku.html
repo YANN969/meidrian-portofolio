@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>LSP | Sahabatku Studio - BlackCore Portfolio</title>
+    <!-- Fonts - Clean & Modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-base: #0A0A0A;
+            --bg-surface: #111111;
+            --bg-elevated: #1A1A1A;
+            --bg-card: #141414;
+            --border-subtle: #262626;
+            --border-glow: #2A2A2A;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #A3A3A3;
+            --text-tertiary: #737373;
+            --text-accent: #3B82F6;
+            --accent-hover: #2563EB;
+            
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --transition-fast: 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-subtle);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        body {
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.75);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 18px 0;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A3A3A3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color var(--transition-fast);
+        }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        .nav-btn:hover {
+            background: var(--bg-elevated);
+            border-color: var(--text-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-accent);
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        .hero h1 span {
+            color: var(--text-accent);
+            border-bottom: 2px solid var(--text-accent);
+            display: inline-block;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 90%;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--text-accent);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            border-color: var(--text-accent);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+        }
+        .stat-block h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        .stat-block p {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+        /* Hero visual with real photo */
+        .hero-visual {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        .hero-visual:hover {
+            transform: scale(1.01);
+        }
+        .photo-frame {
+            width: 100%;
+            height: 320px;
+            background: var(--bg-elevated);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .team-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            filter: grayscale(0.2) contrast(1.05);
+            transition: all 0.5s ease;
+        }
+        .hero-visual:hover .team-photo {
+            filter: grayscale(0) contrast(1.08);
+            transform: scale(1.02);
+        }
+        .photo-caption {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Section Style */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-header .tag {
+            color: var(--text-accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* LSP Description Card */
+        .lsp-highlight {
+            background: linear-gradient(145deg, #121212, #0c0c0c);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            margin-bottom: 60px;
+            transition: all var(--transition-smooth);
+        }
+        .lsp-highlight:hover {
+            border-color: var(--text-accent);
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+        }
+        .lsp-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .lsp-title i {
+            font-size: 2rem;
+            color: var(--text-accent);
+        }
+        .lsp-title h3 {
+            font-size: 1.8rem;
+        }
+        .lsp-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .lsp-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .lsp-features span {
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.2);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-accent);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--text-accent);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
+        }
+        .card-img {
+            background: linear-gradient(145deg, #1e1e2a, #121212);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-accent);
+        }
+        .card-content {
+            padding: 28px;
+        }
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+        .card-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .tech-badge {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tech-badge span {
+            background: rgba(255,255,255,0.05);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Timeline / Milestone */
+        .timeline-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .milestone {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            border-left: 3px solid var(--text-accent);
+            transition: all 0.2s;
+        }
+        .milestone:hover {
+            background: var(--bg-elevated);
+            transform: translateX(6px);
+        }
+        .milestone h3 {
+            margin-bottom: 8px;
+        }
+        .milestone p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* About */
+        .about-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .info-list {
+            list-style: none;
+            margin-top: 28px;
+        }
+        .info-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        .info-list i {
+            width: 28px;
+            color: var(--text-accent);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 48px 0 32px;
+            background: var(--bg-base);
+            border-top: 1px solid var(--border-subtle);
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        .footer-logo h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .footer-logo p {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        .social-links a {
+            color: var(--text-tertiary);
+            font-size: 1.3rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: var(--text-accent);
+        }
+        .copyright {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .hero p {
+                max-width: 100%;
+            }
+            .about-wrap {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 0 24px;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+        }
+        @media (max-width: 640px) {
+            .nav-inner {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .hero-stats {
+                justify-content: space-between;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .lsp-highlight {
+                padding: 28px;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        button, .project-card, .milestone, .btn-outline, .btn-primary {
+            cursor: pointer;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <div class="logo">Sahabatku<span style="color:#3B82F6">.</span>studio</div>
+            <div class="nav-links">
+                <a href="#">Beranda</a>
+                <a href="#">Proyek LSP</a>
+                <a href="#">Tentang</a>
+                <button class="nav-btn" id="contactTrigger">Hubungi</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section dengan Foto Tim (Placeholder pertama diganti foto) -->
+        <div class="container hero">
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <div class="hero-badge reveal">
+                        <i class="fa-regular fa-star"></i> LSP - Sertifikasi Kompetensi
+                    </div>
+                    <h1 class="reveal">Portfolio <span>Uji Kompetensi</span><br>LSP SMK Negeri 1</h1>
+                    <p class="reveal">Proyek resmi untuk memenuhi Uji Kompetensi Lembaga Sertifikasi Profesi. Menampilkan implementasi standar industri pada pengembangan web modern, responsif, interaktif, dan sesuai kaidah pemrograman terkini.</p>
+                    <div class="hero-actions reveal">
+                        <button class="btn-primary" id="exploreBtn"><i class="fa-regular fa-folder-open"></i> Lihat Proyek LSP</button>
+                        <button class="btn-outline" id="demoBtn"><i class="fa-regular fa-certificate"></i> Detail Sertifikasi</button>
+                    </div>
+                    <div class="hero-stats reveal">
+                        <div class="stat-block"><h3>100%</h3><p>Standar Kompetensi</p></div>
+                        <div class="stat-block"><h3>2025</h3><p>Uji LSP Gelombang 1</p></div>
+                        <div class="stat-block"><h3>A+</h3><p>Final Project Grade</p></div>
+                    </div>
+                </div>
+                <div class="hero-visual reveal">
+                    <div class="photo-frame">
+                        <!-- GAMBAR FOTO TIM / TEMPAT KERJA - REAL PHOTO PLACEHOLDER menggunakan gambar dari source yang elegan (unsplash random yang cocok tema studio) tapi saya gunakan gambar premium dummy dengan foto profesional bertema coding/team -->
+                        <img class="team-photo" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Tim pengembang proyek LSP" onerror="this.src='https://placehold.co/800x600/1A1A2E/3B82F6?text=Team+LSP+Studio'">
+                    </div>
+                    <div class="photo-caption">
+                        <i class="fa-regular fa-users"></i> Tim Pengembang - Proyek LSP 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deskripsi Project LSP (Utama) -->
+        <div class="container">
+            <div class="lsp-highlight reveal">
+                <div class="lsp-title">
+                    <i class="fa-solid fa-award"></i>
+                    <h3>Project Uji Kompetensi LSP</h3>
+                </div>
+                <div class="lsp-desc">
+                    Website portofolio ini merupakan bagian dari <strong>Uji Kompetensi Lembaga Sertifikasi Profesi (LSP) P1 bidang Pengembangan Perangkat Lunak</strong>. 
+                    Seluruh elemen mulai dari struktur HTML5 semantik, CSS Grid/Flex modern, JavaScript interaktif, hingga penerapan tema gelap (dark mode) dan responsifitas diuji berdasarkan standar industri 4.0.
+                    Proyek ini dikerjakan secara mandiri dengan memenuhi kriteria:<br><br>
+                    ✅ Desain antarmuka yang modern dan aksesibel.<br>
+                    ✅ Performa tinggi & optimal di berbagai perangkat.<br>
+                    ✅ Interaksi pengguna yang halus (micro-interaction).<br>
+                    ✅ Dokumentasi kode yang rapi dan scalable.
+                </div>
+                <div class="lsp-features">
+                    <span><i class="fa-regular fa-check-circle"></i> Standar SKKNI</span>
+                    <span><i class="fa-regular fa-mobile"></i> Mobile First</span>
+                    <span><i class="fa-regular fa-gem"></i> UI/UX Profesional</span>
+                    <span><i class="fa-regular fa-code"></i> Kode Bersih</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Proyek Unggulan (Implementasi Teknis) -->
+        <section>
+            <div class="container">
+                <div class="section-header reveal">
+                    <div class="tag">Capaian Kompetensi</div>
+                    <h2>Modul Proyek LSP</h2>
+                    <p>Implementasi nyata dari kurikulum dan standar uji profesi.</p>
+                </div>
+                <div class="projects-grid" id="projectsContainer">
+                    <!-- Card akan diisi JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline & Tentang Proses LSP -->
+        <section>
+            <div class="container">
+                <div class="about-wrap">
+                    <div class="about-text reveal">
+                        <div class="tag" style="margin-bottom: 12px;">Tentang LSP</div>
+                        <h2 style="margin-bottom: 20px;">Membangun <span style="color:#3B82F6;">Kompetensi Digital</span> Bersertifikasi</h2>
+                        <p>Lembaga Sertifikasi Profesi (LSP) merupakan mitra resmi yang menguji kemampuan praktis di bidang teknologi. Proyek ini menjadi bukti penguasaan teknis dalam merancang website dengan standar global, menerapkan prinsip responsif, aksesibilitas, dan performa.</p>
+                        <p>Melalui penilaian komprehensif, setiap modul proyek mencerminkan kesiapan menghadapi dunia industri. Tema hitam modern dipilih untuk menonjolkan elemen visual, interaksi halus, serta navigasi intuitif.</p>
+                        <ul class="info-list">
+                            <li><i class="fa-regular fa-calendar-check"></i> Jadwal Uji: April 2025</li>
+                            <li><i class="fa-regular fa-chart-simple"></i> Aspek Penilaian: Fungsionalitas, Desain, Kode</li>
+                            <li><i class="fa-regular fa-star"></i> Status: Lulus Uji Kompetensi</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-wrapper reveal">
+                        <div class="milestone">
+                            <h3><i class="fa-regular fa-clipboard-list"></i> Tahap 1 - Analisis Kebutuhan</h3>
+                            <p>Mengidentifikasi skenario ujian, kebutuhan user, serta mengumpulkan referensi standar industri untuk website portfolio LSP.</p>
+                        </div>
+                        <div class="milestone">
+                            <h3><i class="fa-regular fa-pen-ruler"></i> Tahap 2 - Desain & Prototype</h3>
+                            <p>Membangun wireframe, desain sistem dark mode, tipografi, dan komponen interaktif menggunakan Figma & implementasi kode.</p>
+                        </div>
+                        <div class="milestone">
+                            <h3><i class="fa-regular fa-code-branch"></i> Tahap 3 - Implementasi & Uji</h3>
+                            <p>Pengembangan penuh dengan HTML, CSS modern, JavaScript, testing responsif dan aksesibilitas. Dokumentasi siap diuji oleh asesor LSP.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Penutup -->
+        <section style="border-bottom: none;">
+            <div class="container">
+                <div class="hero-visual" style="background: var(--bg-surface); padding: 48px; text-align: center; border: 1px solid var(--border-subtle);">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 16px;">Siap mengikuti jejak sertifikasi?</h2>
+                    <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 28px;">Project LSP ini menjadi bukti bahwa standar kompetensi dapat diwujudkan dalam karya nyata.</p>
+                    <button class="btn-primary" id="finalCta"><i class="fa-regular fa-file-certificate"></i> Detail Sertifikat</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <h3>Sahabatku<span style="color:#3B82F6">.</span>studio</h3>
+                    <p>LSP Project - Sertifikasi Kompetensi</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 LSP Sahabatku Studio — Proyek Uji Kompetensi LSP SMK. Built with <i class="fa-regular fa-heart" style="color:#3B82F6;"></i> for professional standard.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Data proyek dengan nuansa LSP & Teknologi
+        const projects = [
+            { title: "Sistem Manajemen Tugas (LSP)", desc: "Aplikasi CRUD interaktif dengan localStorage, validasi form, dan UI glassmorphism. Memenuhi standar fungsionalitas LSP.", tech: ["HTML5", "CSS Grid", "JS DOM"] },
+            { title: "Dashboard Analitik Real-time", desc: "Visualisasi data dinamis, chart.js, dan tema gelap. Menunjukkan kemampuan mengintegrasikan library & performa.", tech: ["Chart.js", "Fetch API", "Responsive"] },
+            { title: "Landing Page LSP Interaktif", desc: "Micro-interaction, animasi scroll, dan aksesibilitas penuh. Mencerminkan standar web modern LSP.", tech: ["Intersection Observer", "CSS Keyframes", "Aria"] },
+        ];
+
+        const container = document.getElementById('projectsContainer');
+        if(container) {
+            projects.forEach(proj => {
+                const card = document.createElement('div');
+                card.className = 'project-card reveal';
+                card.innerHTML = `
+                    <div class="card-img">
+                        <i class="fa-regular fa-laptop-code"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>${proj.title}</h3>
+                        <p>${proj.desc}</p>
+                        <div class="tech-badge">
+                            ${proj.tech.map(t => `<span>${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    const toast = document.createElement('div');
+                    toast.innerText = `📋 Modul LSP: ${proj.title} - sesuai dengan standar kompetensi.`;
+                    toast.style.position = 'fixed';
+                    toast.style.bottom = '20px';
+                    toast.style.left = '50%';
+                    toast.style.transform = 'translateX(-50%)';
+                    toast.style.backgroundColor = '#1A1A1A';
+                    toast.style.color = '#3B82F6';
+                    toast.style.padding = '10px 24px';
+                    toast.style.borderRadius = '40px';
+                    toast.style.fontSize = '0.85rem';
+                    toast.style.zIndex = '999';
+                    toast.style.border = '1px solid #2A2A2A';
+                    toast.style.backdropFilter = 'blur(8px)';
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                });
+                container.appendChild(card);
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const showToastMsg = (msg) => {
+            let toast = document.createElement('div');
+            toast.innerText = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#111';
+            toast.style.color = '#fff';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '40px';
+            toast.style.fontSize = '0.85rem';
+            toast.style.zIndex = '1000';
+            toast.style.border = '1px solid #3B82F6';
+            toast.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
+            toast.style.backdropFilter = 'blur(8px)';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        };
+
+        document.getElementById('exploreBtn')?.addEventListener('click', () => {
+            document.querySelector('.projects-grid')?.scrollIntoView({ behavior: 'smooth' });
+            showToastMsg('📁 Menampilkan modul proyek LSP (Uji Kompetensi)');
+        });
+        document.getElementById('demoBtn')?.addEventListener('click', () => {
+            showToastMsg('🎓 LSP: Sertifikasi Bidang Pengembangan Perangkat Lunak - Standar BNSP');
+        });
+        document.getElementById('contactTrigger')?.addEventListener('click', () => {
+            showToastMsg('📧 lsp@sahabatkustudio.id | Tim asesor siap membantu');
+        });
+        document.getElementById('finalCta')?.addEventListener('click', () => {
+            showToastMsg('✅ Proyek LSP dinyatakan memenuhi kriteria uji kompetensi. Detail sertifikat dapat diakses.');
+        });
+
+        const heroVisual = document.querySelector('.hero-visual');
+        if(heroVisual) {
+            heroVisual.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 5;
+                const y = (e.clientY / window.innerHeight) * 5;
+                heroVisual.style.transform = `perspective(800px) rotateX(${y * 0.2}deg) rotateY(${x * 0.2}deg) translateY(-2px)`;
+            });
+            heroVisual.addEventListener('mouseleave', () => {
+                heroVisual.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        }
+    </script>
+</body>
+</html>

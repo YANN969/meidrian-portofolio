@@ -1,0 +1,124 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Website Sahabatku</title>
+
+    
+    <link rel="stylesheet" href="css/sahabatku.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="space">
+
+    <!-- stars -->
+    <div class="star small" style="top:10%; left:20%;"></div>
+    <div class="star small" style="top:40%; left:70%;"></div>
+    <div class="star medium" style="top:60%; left:30%;"></div>
+    <div class="star big" style="top:20%; left:80%;"></div>
+    <div class="star small" style="top:80%; left:10%;"></div>
+    <div class="star medium" style="top:30%; left:50%;"></div>
+
+    <!-- shooting star -->
+    <div class="shooting-star"></div>
+
+</div>
+
+<div class="bg-grid"></div>
+
+<div class="floating-light light1"></div>
+<div class="floating-light light2"></div>
+
+<section class="project-detail">
+
+    <div class="container">
+
+        <div class="project-top">
+
+            <span class="project-label">
+                Featured Project
+            </span>
+
+            <h1>Website Kominfo</h1>
+
+            <p class="project-desc">
+               Dashboard sistem reservasi online untuk Kementerian Komunikasi dan Informatika
+               dengan fitur manajemen jadwal, pemesanan, dan laporan.
+            </p>
+
+        </div>
+
+        <div class="project-banner">
+            <img src="images/kominfo.png" alt="">
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-about">
+
+                <h2>About Project</h2>
+
+                <p>
+                    Project ini dibuat untuk memberikan informasi produk,
+                    lokasi agen, dan meningkatkan branding digital perusahaan.
+                </p>
+
+                <p>
+                    Fokus utama website ini adalah membuat tampilan modern,
+                    responsive, dan nyaman digunakan di semua device.
+                </p>
+
+            </div>
+
+            <div class="project-info">
+
+                <div class="info-card">
+                    <h3>Role</h3>
+                    <p>Frontend Developer</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Tech Stack</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Status</h3>
+                    <p>Completed Project</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-btn">
+            ← Back To Portfolio
+        </a>
+
+    </div>
+
+</section>
+
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<script>
+const cursor = document.querySelector('.cursor');
+const follower = document.querySelector('.cursor-follower');
+
+document.addEventListener('mousemove', (e) => {
+
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+
+    follower.style.left = e.clientX + 'px';
+    follower.style.top = e.clientY + 'px';
+
+});
+</script>
+
+<script src="js/main.js"></script>
+
+</body>
